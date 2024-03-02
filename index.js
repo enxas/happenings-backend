@@ -20,10 +20,7 @@ import swaggerDocs from './swagger.js'
 
 const __dirname = import.meta.dirname
 
-if (!process.env.PORT) {
-	console.log('Missing required environment variable: PORT. Check .env.example file for available values')
-	process.exit(1)
-} else if (!process.env.DATABASE_URI) {
+if (!process.env.DATABASE_URI) {
 	console.log('Missing required environment variable: DATABASE_URI. Check .env.example file for available values')
 	process.exit(1)
 } else if (!process.env.REFRESH_TOKEN_SECRET) {
@@ -35,7 +32,7 @@ if (!process.env.PORT) {
 }
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3500
 
 // Handle options credentials check - before CORS!
 // and fetch cookies credentials requirement
@@ -66,6 +63,6 @@ app.use('/users', userRoute)
 
 // connect to database
 connectDB(() => {
-	app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+	app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`))
 	swaggerDocs(app, PORT)
 })
