@@ -1,5 +1,4 @@
 const allowedOrigins = process.env.ALLOWED_ORIGINS.split(", ") || [];
-console.log(allowedOrigins)
 
 const credentials = (req, res, next) => {
 	const origin = req.headers.origin
