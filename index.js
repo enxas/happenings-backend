@@ -16,8 +16,6 @@ import logoutRoute from './routes/logout.js'
 import happeningRoute from './routes/happening.js'
 import userRoute from './routes/user.js'
 
-import swaggerDocs from './swagger.js'
-
 const __dirname = import.meta.dirname
 
 if (!process.env.DATABASE_URI) {
@@ -54,15 +52,14 @@ app.use(cookieParser())
 app.use('/', express.static(path.join(__dirname, 'public')))
 
 // routes
-app.use('/login', loginRoute)
-app.use('/register', registerRoute)
-app.use('/logout', logoutRoute)
-app.use('/refresh', refreshRoute)
+app.use('/api/v1/login', loginRoute)
+app.use('/api/v1/register', registerRoute)
+app.use('/api/v1/logout', logoutRoute)
+app.use('/api/v1/refresh', refreshRoute)
 app.use('/events', happeningRoute)
 app.use('/users', userRoute)
 
 // connect to database
 connectDB(() => {
 	app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`))
-	swaggerDocs(app, PORT)
 })
